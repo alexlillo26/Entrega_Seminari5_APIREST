@@ -1,11 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoutes from './modules/users/user_routes.js'; // Nota el .js al final
-import forumRoutes from './modules/forum/forum_routes.js'; // Nota el .js al final
-import { corsHandler } from './middleware/corsHandler.js';
-import { loggingHandler } from './middleware/loggingHandler.js';
-import { routeNotFound } from './middleware/routeNotFound.js';
+import userRoutes from './modules/users/user_routes';
+import forumRoutes from './modules/forum/forum_routes';
+import subjectRoutes from './modules/subjects/subject_routes';
+import { corsHandler } from './middleware/corsHandler';
+import { loggingHandler } from './middleware/loggingHandler';
+import { routeNotFound } from './middleware/routeNotFound';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 
@@ -30,7 +31,11 @@ const swaggerOptions = {
             }
         ]
     },
-    apis: ['./modules/users/*.js', './modules/forum/*.js'] // Asegúrate de que esta ruta apunta a tus rutas
+    apis: [
+        './src/modules/users/user_routes.ts',
+        './src/modules/forum/forum_routes.ts',
+        './src/modules/subjects/subject_routes.ts'
+    ] // Asegúrate de que esta ruta apunta a tus rutas
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
@@ -41,16 +46,18 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.json());
 app.use(loggingHandler);
 app.use(corsHandler);
-//rutas
+
+// Rutas
 app.use('/api', userRoutes);
 app.use('/api', forumRoutes);
-// Rutes de prova
+app.use('/api', subjectRoutes);
+
+// Rutas de prueba
 app.get('/', (req, res) => {
     res.send('Welcome to my API');
 });
 
 // Conexión a MongoDB
-//mongoose;
 mongoose
     .connect(process.env.MONGODB_URI || 'mongodb+srv://joan:1234@cluster0.3owhs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to DB'))
