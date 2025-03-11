@@ -1,6 +1,3 @@
-Entrega Seminari API REST
-
-Per executar:
-
-npx tsc
-node build/server.js
+#Eines utilitzades
+- GitHub Copilot
+- Chat GPT
