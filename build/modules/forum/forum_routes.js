@@ -8,8 +8,16 @@ const forum_controller_js_1 = require("./forum_controller.js");
 const router = express_1.default.Router();
 /**
  * @openapi
+ * tags:
+ *   - name: forum
+ *     description: Operaciones relacionadas con el foro
+ */
+/**
+ * @openapi
  * /api/forum:
  *   post:
+ *     tags:
+ *       - forum
  *     summary: Crea una nueva entrada en el foro
  *     description: Añade una nueva entrada al foro.
  *     requestBody:
@@ -32,6 +40,8 @@ router.post('/forum', forum_controller_js_1.createEntryHandler);
  * @openapi
  * /api/forum:
  *   get:
+ *     tags:
+ *       - forum
  *     summary: Obtiene todas las entradas del foro
  *     description: Retorna una lista de todas las entradas del foro.
  *     responses:
@@ -54,6 +64,8 @@ router.get('/forum', forum_controller_js_1.getAllForumHandler);
  * @openapi
  * /api/forum/{id}:
  *   get:
+ *     tags:
+ *       - forum
  *     summary: Obtiene una entrada del foro por ID
  *     description: Retorna los detalles de una entrada específica del foro.
  *     parameters:
@@ -82,6 +94,8 @@ router.get('/forum/:id', forum_controller_js_1.getEntryByIdHandler);
  * @openapi
  * /api/forum/{id}:
  *   put:
+ *     tags:
+ *       - forum
  *     summary: Actualiza una entrada del foro por ID
  *     description: Modifica los detalles de una entrada específica del foro.
  *     parameters:
@@ -112,6 +126,8 @@ router.put('/forum/:id', forum_controller_js_1.updateEntryHandler);
  * @openapi
  * /api/forum/{id}:
  *   delete:
+ *     tags:
+ *       - forum
  *     summary: Elimina una entrada del foro por ID
  *     description: Elimina una entrada específica del foro.
  *     parameters:

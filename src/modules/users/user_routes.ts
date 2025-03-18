@@ -1,42 +1,27 @@
-// src/routes/user_routes.ts
 import express from 'express';
-import {
-    saveMethodHandler,
-    createUserHandler,
-    getAllUsersHandler,
-    getUserByIdHandler,
-    updateUserHandler,
-    deleteUserHandler
-} from '../users/user_controller.js';
+import { createUserHandler,
+         deleteUserHandler, 
+         getAllUsersHandler, 
+         getUserByIdHandler, 
+         updateUserHandler } from './user_controller.js';
 
 const router = express.Router();
 
 /**
  * @openapi
- * /api/main:
- *   get:
- *     summary: Página de bienvenida
- *     description: Retorna un mensaje de bienvenida.
- *     responses:
- *       200:
- *         description: Éxito
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Bienvenido a la API
+ * tags:
+ *   - name: users
+ *     description: Operaciones relacionadas con los usuarios
  */
-router.get('/main', saveMethodHandler);
 
 /**
  * @openapi
  * /api/users:
  *   post:
+ *     tags:
+ *       - users
  *     summary: Crea un nuevo usuario
- *     description: Añade los detalles de un nuevo usuario.
+ *     description: Añade un nuevo usuario.
  *     requestBody:
  *       required: true
  *       content:
@@ -44,10 +29,8 @@ router.get('/main', saveMethodHandler);
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               username:
  *                 type: string
- *               age:
- *                 type: integer
  *               email:
  *                 type: string
  *     responses:
@@ -60,6 +43,8 @@ router.post('/users', createUserHandler);
  * @openapi
  * /api/users:
  *   get:
+ *     tags:
+ *       - users
  *     summary: Obtiene todos los usuarios
  *     description: Retorna una lista de todos los usuarios.
  *     responses:
@@ -72,11 +57,9 @@ router.post('/users', createUserHandler);
  *               items:
  *                 type: object
  *                 properties:
- *                  name:
+ *                   username:
  *                     type: string
- *                  age:
- *                    type: integer
- *                  email:
+ *                   email:
  *                     type: string
  */
 router.get('/users', getAllUsersHandler);
@@ -85,6 +68,8 @@ router.get('/users', getAllUsersHandler);
  * @openapi
  * /api/users/{id}:
  *   get:
+ *     tags:
+ *       - users
  *     summary: Obtiene un usuario por ID
  *     description: Retorna los detalles de un usuario específico.
  *     parameters:
@@ -101,12 +86,10 @@ router.get('/users', getAllUsersHandler);
  *             schema:
  *               type: object
  *               properties:
- *                  name:
+ *                 username:
  *                   type: string
- *                 age:
- *                   type: integer
  *                 email:
- *                    type: string
+ *                   type: string
  *       404:
  *         description: Usuario no encontrado
  */
@@ -116,6 +99,8 @@ router.get('/users/:id', getUserByIdHandler);
  * @openapi
  * /api/users/{id}:
  *   put:
+ *     tags:
+ *       - users
  *     summary: Actualiza un usuario por ID
  *     description: Modifica los detalles de un usuario específico.
  *     parameters:
@@ -131,12 +116,10 @@ router.get('/users/:id', getUserByIdHandler);
  *           schema:
  *             type: object
  *             properties:
- *                 name:
- *                   type: string
- *                 age:
- *                   type: integer
- *                 email:
- *                    type: string
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Usuario actualizado exitosamente
@@ -149,8 +132,10 @@ router.put('/users/:id', updateUserHandler);
  * @openapi
  * /api/users/{id}:
  *   delete:
+ *     tags:
+ *       - users
  *     summary: Elimina un usuario por ID
- *     description: Elimina un usuario específico de la base de datos.
+ *     description: Elimina un usuario específico.
  *     parameters:
  *       - name: id
  *         in: path
