@@ -4,5 +4,5 @@
 
 Per executar:
 
-npx tsc
-node build/server.js
+- npx tsc
+- node build/server.js
