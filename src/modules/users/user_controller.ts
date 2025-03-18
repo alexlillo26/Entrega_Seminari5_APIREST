@@ -2,6 +2,7 @@
 import { saveMethod, createUser, getAllUsers, getUserById, updateUser, deleteUser } from '../users/user_service.js';
 
 import express, { Request, Response } from 'express';
+import User, { IUser } from './user_models.js';
 
 export const saveMethodHandler = async (req: Request, res: Response) => {
     try {
@@ -11,12 +12,25 @@ export const saveMethodHandler = async (req: Request, res: Response) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 export const createUserHandler = async (req: Request, res: Response) => {
     try {
-        const data = await createUser(req.body);
-        res.json(data);
-    } catch (error: any) {
-        res.status(500).json({ message: error.message });
+        const { name, age, email, password } = req.body;
+
+        // Crear un nuevo usuario
+        const newUser = new User({
+            name,
+            age,
+            email,
+            password
+        });
+
+        // Guardar el usuario en la base de datos
+        await newUser.save();
+
+        res.status(201).json({ message: 'Usuario creado exitosamente', user: newUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al crear el usuario', error });
     }
 };
 export const getAllUsersHandler = async (req: Request, res: Response) => {

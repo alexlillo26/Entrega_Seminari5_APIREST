@@ -8,10 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserHandler = exports.updateUserHandler = exports.getUserByIdHandler = exports.getAllUsersHandler = exports.createUserHandler = exports.saveMethodHandler = void 0;
 // src/controllers/user_controller.ts
 const user_service_js_1 = require("../users/user_service.js");
+const user_models_js_1 = __importDefault(require("./user_models.js"));
 const saveMethodHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = (0, user_service_js_1.saveMethod)();
@@ -24,11 +28,20 @@ const saveMethodHandler = (req, res) => __awaiter(void 0, void 0, void 0, functi
 exports.saveMethodHandler = saveMethodHandler;
 const createUserHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield (0, user_service_js_1.createUser)(req.body);
-        res.json(data);
+        const { name, age, email, password } = req.body;
+        // Crear un nuevo usuario
+        const newUser = new user_models_js_1.default({
+            name,
+            age,
+            email,
+            password
+        });
+        // Guardar el usuario en la base de datos
+        yield newUser.save();
+        res.status(201).json({ message: 'Usuario creado exitosamente', user: newUser });
     }
     catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Error al crear el usuario', error });
     }
 });
 exports.createUserHandler = createUserHandler;

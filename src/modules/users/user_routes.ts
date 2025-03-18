@@ -29,10 +29,14 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               name:
  *                 type: string
  *               email:
  *                 type: string
+ *               password:
+ *                 type: string
+ *               age:
+ *                 type: number
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente

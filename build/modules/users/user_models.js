@@ -16,6 +16,10 @@ const userSchema = new mongoose_1.default.Schema({
     email: {
         type: String,
         required: true
+    },
+    password: {
+        type: String,
+        required: true
     }
 });
 const User = mongoose_1.default.model('User', userSchema);

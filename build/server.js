@@ -52,8 +52,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to my API');
 });
 // Conexión a MongoDB
-mongoose_1.default
-    .connect(process.env.MONGODB_URI || 'mongodb+srv://joan:1234@cluster0.3owhs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose_1.default;
+mongoose_1.default.connect('mongodb+srv://joan:1234@cluster0.3owhs.mongodb.net/seminarinode?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to DB'))
     .catch((error) => console.error('DB Connection Error:', error));
 // Iniciar el servidor

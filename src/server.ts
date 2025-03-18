@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 
 // Conexión a MongoDB
 mongoose
-    .connect(process.env.MONGODB_URI || 'mongodb+srv://joan:1234@cluster0.3owhs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://joan:1234@cluster0.3owhs.mongodb.net/seminarinode?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to DB'))
     .catch((error) => console.error('DB Connection Error:', error));
 
