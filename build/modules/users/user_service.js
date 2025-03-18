@@ -12,8 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.createUser = exports.saveMethod = void 0;
-// src/services/user_service.ts
+exports.deleteUser = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.loginUser = exports.createUser = exports.saveMethod = void 0;
 const user_models_js_1 = __importDefault(require("../users/user_models.js"));
 const saveMethod = () => {
     return 'Hola';
@@ -24,6 +23,17 @@ const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () 
     return yield user.save();
 });
 exports.createUser = createUser;
+const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_models_js_1.default.findOne({ email });
+    if (!user) {
+        throw new Error('Usuario no encontrado');
+    }
+    if (user.password !== password) {
+        throw new Error('Credenciales incorrectas');
+    }
+    return user;
+});
+exports.loginUser = loginUser;
 const getAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield user_models_js_1.default.find();
 });

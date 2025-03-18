@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const user_controller_js_1 = require("./user_controller.js");
+const user_controller_js_1 = require("../users/user_controller.js");
 const router = express_1.default.Router();
 /**
  * @openapi
@@ -40,6 +40,34 @@ const router = express_1.default.Router();
  *         description: Usuario creado exitosamente
  */
 router.post('/users', user_controller_js_1.createUserHandler);
+/**
+ * @openapi
+ * /api/users/login:
+ *   post:
+ *     tags:
+ *       - users
+ *     summary: Inicia sesión de un usuario
+ *     description: Verifica las credenciales de un usuario.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login exitoso
+ *       401:
+ *         description: Credenciales incorrectas
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.post('/users/login', user_controller_js_1.loginUserHandler);
 /**
  * @openapi
  * /api/users:

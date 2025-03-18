@@ -12,8 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserHandler = exports.updateUserHandler = exports.getUserByIdHandler = exports.getAllUsersHandler = exports.createUserHandler = exports.saveMethodHandler = void 0;
-// src/controllers/user_controller.ts
+exports.deleteUserHandler = exports.updateUserHandler = exports.getUserByIdHandler = exports.getAllUsersHandler = exports.loginUserHandler = exports.createUserHandler = exports.saveMethodHandler = void 0;
 const user_service_js_1 = require("../users/user_service.js");
 const user_models_js_1 = __importDefault(require("./user_models.js"));
 const saveMethodHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -45,6 +44,17 @@ const createUserHandler = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.createUserHandler = createUserHandler;
+const loginUserHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    try {
+        const user = yield (0, user_service_js_1.loginUser)(email, password);
+        res.status(200).json({ message: 'Login exitoso', user }); // Sin return
+    }
+    catch (error) {
+        res.status(401).json({ message: error.message }); // Sin return
+    }
+});
+exports.loginUserHandler = loginUserHandler;
 const getAllUsersHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield (0, user_service_js_1.getAllUsers)();

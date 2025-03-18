@@ -1,9 +1,12 @@
 import express from 'express';
-import { createUserHandler,
-         deleteUserHandler, 
-         getAllUsersHandler, 
-         getUserByIdHandler, 
-         updateUserHandler } from './user_controller.js';
+import { 
+    createUserHandler, 
+    deleteUserHandler, 
+    getAllUsersHandler, 
+    getUserByIdHandler, 
+    loginUserHandler, 
+    updateUserHandler 
+} from '../users/user_controller.js';
 
 const router = express.Router();
 
@@ -42,6 +45,35 @@ const router = express.Router();
  *         description: Usuario creado exitosamente
  */
 router.post('/users', createUserHandler);
+
+/**
+ * @openapi
+ * /api/users/login:
+ *   post:
+ *     tags:
+ *       - users
+ *     summary: Inicia sesión de un usuario
+ *     description: Verifica las credenciales de un usuario.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login exitoso
+ *       401:
+ *         description: Credenciales incorrectas
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.post('/users/login', loginUserHandler);
 
 /**
  * @openapi
